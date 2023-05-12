@@ -10,5 +10,9 @@ export const Medicamentos = sequelize.define("medicamentos",{
     name_medicine:{
         type: DataTypes.STRING(70),
         allowNull: false
+    },
+    price_medicine: {
+        type: DataTypes.NUMBER(),
+        allowNull: false
     }
 }, { timestamps: false })
