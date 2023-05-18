@@ -12,7 +12,9 @@ export const createMedicine = async (req,res) => {
         })
         if(medicine) return res.sendStatus(409)
         await Medicamentos.create({
-            name_medicine: body.name_medicine
+            name_medicine: body.name_medicine,
+            price_medicine: body.price_medicine,
+            cantidad: body.cantidad
         })
         return res.sendStatus(201) 
     }catch(err){
@@ -25,6 +27,8 @@ export const putMedicine = async (req,res) => {
         const body = req.body
         if(!validate(body)) return res.sendStatus(400)
         medicine.name_medicine = body.name_medicine
+        medicine.price_medicine = body.price_medicine
+        medicine.cantidad = body.cantidad
         await medicine.save()
         return res.status(200).json({name_medicine:medicine.name_medicine})
     }catch(err){
@@ -36,6 +40,8 @@ export const allMedicine = async (req,res) => {
         const medicines = await Medicamentos.findAll({ order: [['name_medicine', 'ASC']] })
         const medicineList = medicines.map(medicine => ({
           name_medicine: medicine.name_medicine,
+          price_medicine: medicine.price_medicine,
+            cantidad: medicine.cantidad
         }))
         res.status(200).json(medicineList)
     } catch (err) {
@@ -57,7 +63,9 @@ export const deleteMedicine = async (req,res) => {
 
 export const validate = body => {
     const schema = Joi.object({
-        name_medicine: Joi.string().max(70).trim().min(0).required()
+        name_medicine: Joi.string().max(70).trim().min(0).required(),
+        price_medicine: Joi.number().max(1000000).min(100).required(),
+        cantidad: Joi.number().max(100000).min(1).required()
     });
     const { error } = schema.validate(body)
     if (error) return false

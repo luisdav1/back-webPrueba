@@ -12,7 +12,11 @@ export const Medicamentos = sequelize.define("medicamentos",{
         allowNull: false
     },
     price_medicine: {
-        type: DataTypes.NUMBER(),
+        type: DataTypes.FLOAT(),
+        allowNull: false
+    },
+    cantidad:{
+        type: DataTypes.INTEGER(),
         allowNull: false
     }
 }, { timestamps: false })

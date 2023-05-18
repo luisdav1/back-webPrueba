@@ -5,6 +5,7 @@ import cors from 'cors'
 import routeUsuario from './routes/usuario.js'
 import routeMedicamentos from './routes/medicamentos.js'
 import routeOrders from './routes/orders.js'
+import routePacient from './routes/paciente.js'
 import  env  from "./config.js"
 // app init
 const app = express()
@@ -21,6 +22,7 @@ app.use(cors())
 app.use('/api', routeOrders)
 app.use('/api', routeUsuario)
 app.use('/api', routeMedicamentos)
+app.use('/api', routePacient)
 
 // Route Not Found
 app.use((req, res) => {
